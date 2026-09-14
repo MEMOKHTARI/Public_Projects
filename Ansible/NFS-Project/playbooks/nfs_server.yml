@@ -1,13 +1,14 @@
 ---
 - name: Configure NFS server
   hosts: nfs_servers
-  becomes: true
+  become: true
 
   tasks:
     - name: Install NFS server packages 
       ansible-builtin.dnf:
         name: nfs-utils 
         state: present
+
 
     - name: create NFS Directory
       ansible.builtin.file:
@@ -17,11 +18,15 @@
         - group: root
         - mode: "0755"
 
+
+
     - name: enable  and start NFS servers 
       ansible.builtin.service:
         name: nfs-servver
         state: started
         enabled: true
+
+
 
 
     - name: Configure NFS exports
@@ -32,4 +37,33 @@
         group: root
         mode: "0644"
         backup: true
+      notify:
+        - Reload NFS exports
 
+
+
+
+    - name: Reload NFS sxports
+      ansible.builtin.command:
+        cmd: exportfs -rav
+
+
+
+
+#add nfs service into the firewall 
+#if you dont have firewalld installed, you can install the galaxy role from ansible-galaxy collection
+#ansible-galaxy collection install ansible.posix
+    - name: allow firewall for NFS
+      ansible.posix.firewalld:
+        service: nfs
+        permanent: true
+        immediate: true
+        state: enabled 
+
+        
+    
+
+  handlers:
+    - name: Reload NFS exports
+      ansible.builtin.command:
+        cmd: exportfs -rav
