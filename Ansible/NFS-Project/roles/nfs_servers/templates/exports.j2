@@ -1,4 +1,0 @@
-{{ansible_managed}}
-{% for export in nfs_exports %}
-{{nfs_export_path}} {{nfs_allows_network}}({{nfs_exports_options | join(',')}})
-{% endfor %}
