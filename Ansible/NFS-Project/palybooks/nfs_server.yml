@@ -23,6 +23,7 @@
         state: started
         enabled: true
 
+
     - name: Configure NFS exports
       ansible.builtin.template:
         src: ../roles/nfs_servers/templates/exports.j2
