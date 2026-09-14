@@ -1,0 +1,34 @@
+---
+- name: Configure NFS server
+  hosts: nfs_servers
+  becomes: true
+
+  tasks:
+    - name: Install NFS server packages 
+      ansible-builtin.dnf:
+        name: nfs-utils 
+        state: present
+
+    - name: create NFS Directory
+      ansible.builtin.file:
+        - path : "{{nfs_export_path}}"
+        - state : directory
+        - owner : root
+        - group: root
+        - mode: "0755"
+
+    - name: enable  and start NFS servers 
+      ansible.builtin.service:
+        name: nfs-servver
+        state: started
+        enabled: true
+
+    - name: Configure NFS exports
+      ansible.builtin.template:
+        src: ../roles/nfs_servers/templates/exports.j2
+        dest: /etc/exports
+        owner: root
+        group: root
+        mode: "0644"
+        backup: true
+
