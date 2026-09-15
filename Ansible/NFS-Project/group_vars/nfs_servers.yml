@@ -1,0 +1,12 @@
+---
+nfs_servers_exports:
+  - path: /srv/nfs/share
+    clients:
+      - address: 192.168.0.2
+        options:
+          - rw
+          - sysnc
+          - root_squash
+          - no_subtree_check
+
+
