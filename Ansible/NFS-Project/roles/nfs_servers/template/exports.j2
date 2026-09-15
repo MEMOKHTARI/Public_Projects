@@ -1,4 +1,4 @@
 
 {% for client in nfs_export_clients %}
-{{ nfs_export_path }} {{ client }}({{ nfs_export_options | join(',') }})
+{{ nfs_export_path }}{{ client }}({{ nfs_export_options | join(',') }})
 {% endfor %}
