@@ -1,0 +1,5 @@
+{% for exports in nfs_servers_exports %}
+{% for client in eport.client %}
+{{export.path}} {{client.addrss}} {{client.options | join (',')}})
+{% endfor %}
+{% endfor %}
