@@ -1,4 +1,6 @@
 ---
+
+#---------------------- Export Directory 
 - name: Exported diectory exists with correct ownership
   ansible.builtin.file:
     path: "{{ nfs_export_path }}"
@@ -6,3 +8,32 @@
     owner: "{{ nfs_export_owner }}"
     group: "{{ nfs_group_name }}"
     mode: "{{ nfs_export_mode }}"
+
+
+#---------------------- Deploy NFS exports
+- name: Deploy NFS exports
+  ansible.builtin.template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    Re-export NFS shares 
+
+
+#---------------------- Enable and start nfs service
+- name: enable ans start nfs service
+  ansible.builtin.systemd_service:
+    name: "{{ nfs_server_service }}"
+    enabled: true
+    stated:  started 
+
+
+#---------------------- Permit NFS via firewall
+- name: Permit NFS via firewall
+  ansible.posix.firewall:
+    service: "{{ nfs_firewall_service }}"
+    state: enabled
+    permanent: true
+    immediate: true 
