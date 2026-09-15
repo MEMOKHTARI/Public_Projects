@@ -1,0 +1,5 @@
+---
+nfs_servers_package: nfs-kernel-server
+nfs_server_service:  nfs-kernel-server
+nfs_server_export:   []
+nfs_server_directory_mode: "2770"

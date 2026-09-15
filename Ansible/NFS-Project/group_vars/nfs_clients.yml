@@ -1,0 +1,8 @@
+---
+nfs_clients_share_users:
+  - ansible
+
+nfs_clients_mounts:
+  - server: "{{hostvars['nfs01']['ansible_host']}}"
+    remote_path: "{{ hostvars['nfs01']['nfs_server_exports'][0]['path'] }}"
+    mountpoint: /srv/nfs/share
