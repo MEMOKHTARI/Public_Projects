@@ -1,0 +1,10 @@
+---
+
+#----------------------- Mount point
+- name: check for the mount point is exist
+  ansible.legacy.file:
+    path: "{{ nfs_mount_point }}"
+    state: directory
+    owner: "{{ nfs_mount_point_owner }}"
+    group: root
+    mode: "{{ nfs_mount_point_mode }}"
