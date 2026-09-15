@@ -1,12 +1,7 @@
 ---
-nfs_servers_exports:
-  - path: /srv/nfs/share
-    clients:
-      - address: 192.168.0.2
-        options:
-          - rw
-          - sync
-          - root_squash
-          - no_subtree_check
+nfs_export_client: "{{ groups['nfs_clients'] | map('extract' , hostvars , 'ansible_host') | list}}"
 
-
+nfs_export_options:
+  - rw
+  - sync
+  - root_squash 

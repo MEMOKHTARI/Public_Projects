@@ -1,0 +1,11 @@
+---
+- name: Install the NFS utilities packge
+  ansible.builtin.dnf:
+    name: "{{ nfs_packge }}"
+    state: present 
+
+- name: Ensure the shared NFS group exists witht ht e pinned GID
+  ansible.builtin.group:
+    name: "{{ nfs_group_name }}"
+    gid : "{{ nfs_group_gid }}"
+    State: present 

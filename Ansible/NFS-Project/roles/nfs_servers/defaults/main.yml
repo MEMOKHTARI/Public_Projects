@@ -1,5 +1,5 @@
 ---
-nfs_servers_package: nfs-kernel-server
-nfs_server_service:  nfs-kernel-server
-nfs_server_export:   []
-nfs_server_directory_mode: "2770"
+nfs_server_service:  nfs-server
+nfs_firewall_service: nfs
+nfs_export_owner: root
+nfs_export_mode: "2770"

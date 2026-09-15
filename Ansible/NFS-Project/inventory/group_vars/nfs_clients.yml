@@ -1,8 +1,8 @@
 ---
-nfs_clients_share_users:
-  - ansible
+nfs_mount_point: /mnt/shared
 
-nfs_clients_mounts:
-  - server: "{{hostvars['nfs01']['ansible_host']}}"
-    remote_path: "{{ hostvars['nfs01']['nfs_server_exports'][0]['path'] }}"
-    mountpoint: /srv/nfs/share
+nfs_mount_option:
+  - default #the normal rw,suid,dev,auto
+  - _netdev #marks this as network-dependent so systemd orders it after the network is up
+
+nfs_app_user: ansible

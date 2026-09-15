@@ -1,4 +1,13 @@
 ---
 ansible_user: ansible
-nfs_share_group_name: nfs-share
-nfs_share_group_id: 3000
+nfs_share_group_name: nfs-share-writers
+nfs_share_group_id: 5000
+
+#------export Path
+nfs_export_path: /shared
+
+#------Server endpoint
+nfs_server_address: 192.168.0.2
+
+
+nfs_version: "4.2"
