@@ -8,3 +8,21 @@
     owner: "{{ nfs_mount_point_owner }}"
     group: root
     mode: "{{ nfs_mount_point_mode }}"
+
+
+#----------------------- user identity
+- name: add user to the shared NFS group
+  ansible.builtin.user:
+    name: "{{ nfs_app_user }}"
+    groups: "{{ nfs_group_name }}"
+    append: true 
+
+
+#----------------------- Mount the NFS exports and put it in /etc/fstab
+- name: mount the NFS and add it into the /etc/fstab
+  ansible.posix.mount:
+    src: "{{ nfs_servers_address }}::{{ nfs_export_path }}"
+    path: "{{ nfs_mount_point }}"
+    fstype: nfs
+    opts: "{{ (nfs_mount_options + ['vars=' -nfs_version] | join (',')) }}"
+    state: mounted
