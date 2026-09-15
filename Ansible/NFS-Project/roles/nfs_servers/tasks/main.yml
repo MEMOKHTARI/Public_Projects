@@ -1,0 +1,8 @@
+---
+- name: Exported diectory exists with correct ownership
+  ansible.builtin.file:
+    path: "{{ nfs_export_path }}"
+    State: present
+    owner: "{{ nfs_export_owner }}"
+    group: "{{ nfs_group_name }}"
+    mode: "{{ nfs_export_mode }}"
