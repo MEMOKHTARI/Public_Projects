@@ -5,7 +5,7 @@ nfs_servers_exports:
       - address: 192.168.0.2
         options:
           - rw
-          - sysnc
+          - sync
           - root_squash
           - no_subtree_check
 
